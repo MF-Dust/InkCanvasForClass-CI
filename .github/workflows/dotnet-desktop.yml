@@ -41,7 +41,7 @@ jobs:
     - name: Build the solution
       run: |
         msbuild -t:restore /p:GitFlow="Github Action"
-        msbuild -target:"ILRepack" /p:Configuration=Release /p:Platform="Any CPU" /p:GitFlow="Github Action"
+        msbuild -target:"Build" /p:Configuration=Release /p:Platform="Any CPU" /p:GitFlow="Github Action"
       env:
         Configuration: ${{ matrix.configuration }}
 
