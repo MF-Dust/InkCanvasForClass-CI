@@ -1306,57 +1306,6 @@ namespace Ink_Canvas {
             catch { }
         }
 
-        #region SelectionV2 Popup
-
-        private void SelectionV2Init() {
-            FloatingToolBarV2.SelectionV2_SelectAllEvent += (sender, args) => {
-                inkCanvas.Select(inkCanvas.Strokes);
-                FloatingToolBarV2.SelectionPopupV2.IsOpen = false;
-            };
-            FloatingToolBarV2.SelectionV2_UnSelectEvent += (sender, args) => {
-                CancelCurrentStrokesSelection();
-                FloatingToolBarV2.SelectionPopupV2.IsOpen = false;
-            };
-            FloatingToolBarV2.SelectionV2_ReverseSelectEvent += (sender, args) => {
-                var strokes = new StrokeCollection(inkCanvas.Strokes.Where(stroke =>
-                    !inkCanvas.GetSelectedStrokes().Contains(stroke)).Where(stroke=>!stroke.ContainsPropertyData(IsLockGuid)));
-                if (strokes.Any()) {
-                    inkCanvas.Select(strokes);
-                } else {
-                    CancelCurrentStrokesSelection();
-                }
-                FloatingToolBarV2.SelectionPopupV2.IsOpen = false;
-            };
-            FloatingToolBarV2.SelectionV2.ApplyScaleToStylusTip = Settings.Canvas.ApplyScaleToStylusTip;
-            FloatingToolBarV2.SelectionV2.OnlyHitTestFullyContainedStrokes = Settings.Canvas.OnlyHitTestFullyContainedStrokes;
-            FloatingToolBarV2.SelectionV2.AllowClickToSelectLockedStroke = Settings.Canvas.AllowClickToSelectLockedStroke;
-            FloatingToolBarV2.SelectionV2.SelectionModeSelected = (SelectionPopup.SelectionMode)Settings.Canvas.SelectionMethod;
-            FloatingToolBarV2.SelectionV2_ApplyScaleToStylusTipChanged += (sender, args) => {
-                if (!isLoaded) return;
-                Settings.Canvas.ApplyScaleToStylusTip = FloatingToolBarV2.SelectionV2.ApplyScaleToStylusTip;
-                ToggleSwitchApplyScaleToStylusTip.IsOn = FloatingToolBarV2.SelectionV2.ApplyScaleToStylusTip;
-                SaveSettingsToFile();
-            };
-            FloatingToolBarV2.SelectionV2_OnlyHitTestFullyContainedStrokesChanged += (sender, args) => {
-                if (!isLoaded) return;
-                Settings.Canvas.OnlyHitTestFullyContainedStrokes = FloatingToolBarV2.SelectionV2.OnlyHitTestFullyContainedStrokes;
-                ToggleSwitchOnlyHitTestFullyContainedStrokes.IsOn = FloatingToolBarV2.SelectionV2.OnlyHitTestFullyContainedStrokes;
-                SaveSettingsToFile();
-            };
-            FloatingToolBarV2.SelectionV2_AllowClickToSelectLockedStrokeChanged += (sender, args) => {
-                if (!isLoaded) return;
-                Settings.Canvas.AllowClickToSelectLockedStroke = FloatingToolBarV2.SelectionV2.AllowClickToSelectLockedStroke;
-                ToggleSwitchAllowClickToSelectLockedStroke.IsOn = FloatingToolBarV2.SelectionV2.AllowClickToSelectLockedStroke;
-                SaveSettingsToFile();
-            };
-            FloatingToolBarV2.SelectionV2_SelectionModeChanged += (sender, args) => {
-                if (!isLoaded) return;
-                Settings.Canvas.SelectionMethod = (int)args.NowMode;
-                ComboBoxSelectionMethod.SelectedIndex = (int)args.NowMode;
-                SaveSettingsToFile();
-            };
-        }
-
         #endregion
     }
 }

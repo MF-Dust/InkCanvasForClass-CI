@@ -229,8 +229,6 @@ namespace Ink_Canvas {
 
             isLoaded = true;
 
-            InitFloatingToolbarV2();
-
             BlackBoardLeftSidePageListView.ItemsSource = blackBoardSidePageListViewObservableCollection;
             BlackBoardRightSidePageListView.ItemsSource = blackBoardSidePageListViewObservableCollection;
 

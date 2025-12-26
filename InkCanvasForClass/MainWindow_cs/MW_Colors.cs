@@ -696,40 +696,6 @@ namespace Ink_Canvas {
             return b;
         }
 
-        #region PenPaletteV2
-
-        private void PenPaletteV2Init() {
-            FloatingToolBarV2.PenPaletteV2_ColorSelectionChanged += PenpaletteV2_ColorSelectionChanged;
-            FloatingToolBarV2.PenPaletteV2_ColorModeChanged += PenpaletteV2_ColorModeChanged;
-            FloatingToolBarV2.PenPaletteV2_CustomColorChanged += PenpaletteV2_CustomColorChanged;
-            FloatingToolBarV2.PenPaletteV2_PenModeChanged += PenpaletteV2_PenModeChanged;
-            FloatingToolBarV2.PenPaletteV2.SelectedColor = ColorPalette.ColorPaletteColor.ColorRed;
-        }
-
-        private void PenpaletteV2_ColorSelectionChanged(object sender, ColorPalette.ColorSelectionChangedEventArgs e) {
-            if (e.TriggerMode == ColorPalette.TriggerMode.TriggeredByCode) return;
-            drawingAttributes.Color = FloatingToolBarV2.PenPaletteV2.GetColor(e.NowColor, false, null);
-        }
-
-        private void PenpaletteV2_ColorModeChanged(object sender, ColorPalette.ColorModeChangedEventArgs e) {
-            if (e.TriggerMode == ColorPalette.TriggerMode.TriggeredByCode) return;
-            drawingAttributes.Color = FloatingToolBarV2.PenPaletteV2.GetColor(FloatingToolBarV2.PenPaletteV2.SelectedColor, false, null);
-        }
-
-        private void PenpaletteV2_CustomColorChanged(object sender, ColorPalette.CustomColorChangedEventArgs e) {
-            if (e.TriggerMode == ColorPalette.TriggerMode.TriggeredByCode) return;
-            if (FloatingToolBarV2.PenPaletteV2.SelectedColor == ColorPalette.ColorPaletteColor.ColorCustom) 
-                drawingAttributes.Color = e.NowColor??new Color();
-        }
-
-        private void PenpaletteV2_PenModeChanged(object sender, ColorPalette.PenModeChangedEventArgs e) {
-            penType = e.NowMode == ColorPalette.PenMode.HighlighterMode ? 1 : 0;
-            drawingAttributes.Width = e.NowMode == ColorPalette.PenMode.HighlighterMode ? Settings.Canvas.HighlighterWidth / 2 : Settings.Canvas.InkWidth;
-            drawingAttributes.Height = e.NowMode == ColorPalette.PenMode.HighlighterMode ? Settings.Canvas.HighlighterWidth : Settings.Canvas.InkWidth;
-            drawingAttributes.StylusTip = e.NowMode == ColorPalette.PenMode.HighlighterMode ? StylusTip.Rectangle : StylusTip.Ellipse;
-            drawingAttributes.IsHighlighter = e.NowMode == ColorPalette.PenMode.HighlighterMode;
-        }
-
         #endregion
     }
 }
